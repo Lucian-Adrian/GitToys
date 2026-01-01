@@ -1,0 +1,14 @@
+{
+  "name": "gittoys-portable",
+  "version": "1.0.0",
+  "description": "Portable GitToys GUI MVP",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "cli": "node cli.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  }
+}

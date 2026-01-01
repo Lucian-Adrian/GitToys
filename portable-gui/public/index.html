@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitToys Portable</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="repo-info">
+                <h1 id="repo-name">GitToys</h1>
+                <span id="branch-name" class="badge">main</span>
+            </div>
+            <div class="path-selector">
+                <input type="text" id="repo-path" placeholder="Full path to git repository...">
+                <button id="set-path-btn" class="btn-secondary">Open</button>
+            </div>
+            <div class="actions">
+                <button id="refresh-btn" class="btn-secondary">Refresh</button>
+                <button id="pull-btn" class="btn-secondary">Pull</button>
+                <button id="push-btn" class="btn-primary">Push</button>
+            </div>
+        </header>
+
+        <main>
+            <section class="changes-section">
+                <div class="section-header">
+                    <h2>Changes (<span id="change-count">0</span>)</h2>
+                    <div class="bulk-actions">
+                        <button id="select-all" class="btn-link">Select All</button>
+                        <button id="deselect-all" class="btn-link">Deselect All</button>
+                    </div>
+                </div>
+                <div id="file-list" class="file-list">
+                    <!-- Files will be injected here -->
+                </div>
+            </section>
+
+            <section class="side-panel">
+                <div class="commit-section">
+                    <div class="commit-config">
+                        <label for="commit-template">Commit Template</label>
+                        <input type="text" id="commit-template" value="feat: update {file}" placeholder="feat: update {file}">
+                        <p class="hint">Use {file} for filename, {path} for full path</p>
+                    </div>
+                    <button id="bulk-commit-btn" class="btn-success btn-large" disabled>
+                        Bulk Commit Selected
+                    </button>
+                </div>
+
+                <div class="diff-section">
+                    <h2>Diff</h2>
+                    <pre id="diff-viewer">Select a file to see changes...</pre>
+                </div>
+            </section>
+        </main>
+
+        <div id="status-bar" class="status-bar">
+            Ready
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
