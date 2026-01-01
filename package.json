@@ -1,0 +1,230 @@
+{
+  "name": "gittoys",
+  "displayName": "GitToys",
+  "description": "PowerToys-style modular Git utilities - Bulk commits, quick actions, and more!",
+  "version": "0.2.0",
+  "publisher": "gittoys",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "SCM Providers",
+    "Other"
+  ],
+  "keywords": [
+    "git",
+    "bulk commit",
+    "commit",
+    "utilities",
+    "tools",
+    "powertoys"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gittoys/gittoys"
+  },
+  "extensionDependencies": [
+    "vscode.git"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "gittoys.openBulkCommit",
+        "title": "Open Bulk Commit",
+        "category": "GitToys",
+        "icon": "$(git-commit)"
+      },
+      {
+        "command": "gittoys.refreshBulkCommit",
+        "title": "Refresh Changed Files",
+        "category": "GitToys",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "gittoys.openQuickActions",
+        "title": "Open Quick Actions",
+        "category": "GitToys",
+        "icon": "$(zap)"
+      },
+      {
+        "command": "gittoys.undoLastCommit",
+        "title": "Undo Last Commit",
+        "category": "GitToys",
+        "icon": "$(discard)"
+      },
+      {
+        "command": "gittoys.pushChanges",
+        "title": "Push Changes",
+        "category": "GitToys",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "gittoys.pullChanges",
+        "title": "Pull Changes",
+        "category": "GitToys",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "gittoys.applyTemplate",
+        "title": "Apply Commit Template",
+        "category": "GitToys",
+        "icon": "$(file-text)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "gittoys.openBulkCommit",
+        "key": "ctrl+shift+g b",
+        "mac": "cmd+shift+g b",
+        "when": "gitOpenRepositoryCount > 0"
+      },
+      {
+        "command": "gittoys.openQuickActions",
+        "key": "ctrl+shift+g q",
+        "mac": "cmd+shift+g q",
+        "when": "gitOpenRepositoryCount > 0"
+      },
+      {
+        "command": "gittoys.undoLastCommit",
+        "key": "ctrl+shift+g z",
+        "mac": "cmd+shift+g z",
+        "when": "gitOpenRepositoryCount > 0"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "gittoys.openBulkCommit",
+          "when": "gitOpenRepositoryCount > 0"
+        },
+        {
+          "command": "gittoys.openQuickActions",
+          "when": "gitOpenRepositoryCount > 0"
+        },
+        {
+          "command": "gittoys.undoLastCommit",
+          "when": "gitOpenRepositoryCount > 0"
+        },
+        {
+          "command": "gittoys.pushChanges",
+          "when": "gitOpenRepositoryCount > 0"
+        },
+        {
+          "command": "gittoys.pullChanges",
+          "when": "gitOpenRepositoryCount > 0"
+        }
+      ],
+      "scm/title": [
+        {
+          "command": "gittoys.openBulkCommit",
+          "group": "navigation@1",
+          "when": "scmProvider == git"
+        },
+        {
+          "command": "gittoys.openQuickActions",
+          "group": "navigation@2",
+          "when": "scmProvider == git"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "gittoys.refreshBulkCommit",
+          "when": "view == gittoys.toysView",
+          "group": "navigation"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "gittoys",
+          "title": "GitToys",
+          "icon": "$(tools)"
+        }
+      ]
+    },
+    "views": {
+      "gittoys": [
+        {
+          "id": "gittoys.toysView",
+          "name": "Git Toys",
+          "type": "tree"
+        },
+        {
+          "id": "gittoys.quickActionsView",
+          "name": "Quick Actions",
+          "type": "tree"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "GitToys",
+      "properties": {
+        "gittoys.bulkCommit.autoStage": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically stage files before committing"
+        },
+        "gittoys.bulkCommit.showDiffOnSelect": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show diff preview when selecting a file"
+        },
+        "gittoys.bulkCommit.pushAfterCommit": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically push after bulk commit completes"
+        },
+        "gittoys.bulkCommit.confirmBeforeCommit": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show confirmation dialog before committing"
+        },
+        "gittoys.bulkCommit.templates": {
+          "type": "array",
+          "default": [
+            { "name": "feat", "template": "feat: ", "description": "New feature" },
+            { "name": "fix", "template": "fix: ", "description": "Bug fix" },
+            { "name": "docs", "template": "docs: ", "description": "Documentation" },
+            { "name": "style", "template": "style: ", "description": "Code style" },
+            { "name": "refactor", "template": "refactor: ", "description": "Refactoring" },
+            { "name": "test", "template": "test: ", "description": "Tests" },
+            { "name": "chore", "template": "chore: ", "description": "Maintenance" }
+          ],
+          "description": "Commit message templates (Conventional Commits by default)",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "template": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "gittoys.quickActions.showInStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show quick action buttons in status bar"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "node esbuild.js --production",
+    "watch": "node esbuild.js --watch",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.22.0",
+    "esbuild": "^0.19.8",
+    "eslint": "^8.55.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {}
+}
